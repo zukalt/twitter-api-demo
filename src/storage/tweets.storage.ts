@@ -71,7 +71,11 @@ export class TweetsStorage {
   }
 
 
-  async getOccurrenceReport(start: number, end = Date.now()) {
-    return this.mongo.getMongoRepository(TopicsEntity).find({ where: {_id: { $gt: start} }})
+  async getOccurrenceReport(start: number, pageSize: number): Promise<TopicsEntity[]> {
+    const query = {_id: {$gt: start}}
+    return this.mongo
+      .getMongoRepository(TopicsEntity)
+      .createCursor(query)
+      .limit(pageSize).toArray()
   }
 }
