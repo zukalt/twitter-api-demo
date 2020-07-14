@@ -15,8 +15,6 @@ services:
       DATABASE_USER: mongo
       DATABASE_PASS: mongo-user-pass
       APP_FOLLOW_TOPICS: '["trump","isis","esports","lady gaga"]'
-      TWITTER_API_KEY: 'XlqBn5Hpuvvd0j2dlZTJH0Nzs'
-      TWITTER_API_SECRET: 'vzSlioQ2fr84IYhzqNIbgbSoibbif0r5Wp87WXt2ZOjtVCDmKE'
       #TWITTER_API_KEY=...put api key here and uncomment it
       #TWITTER_API_SECRET=...put api secret and uncomment this one too
     links:
