@@ -28,3 +28,14 @@ Then open browser to access:
 - Swagger docs UI for api http://localhost:3000/swagger
 - Mongo express to what's in the database http://localhost:8081
 
+
+## Important Note
+
+On first run scraper will try to load as early tweets as possible. As the number of tweets is quite big
+this initial run can take couple of days to complete (due to API rate limitation).
+
+You can stop the containers by `Ctrl+C` and then run again. 
+On next run scraper will not try to fill only the gap between last run and current, and will soon load
+all missed tweets and continue in normal flow.
+
+ 

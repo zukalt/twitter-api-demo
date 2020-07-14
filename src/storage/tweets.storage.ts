@@ -55,7 +55,7 @@ export class TweetsStorage {
     const resp = await this.mongo.getMongoRepository(TweetEntity)
       .createCursor().sort({ _id: -1 }).limit(1);
     let id = '0';
-    if (resp.hasNext) {
+    if (await resp.hasNext()) {
       id = (await resp.next())._id;
       await resp.close();
     }
