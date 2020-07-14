@@ -1,3 +1,60 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', { 'packages': ['corechart'] });
+      google.charts.setOnLoadCallback(fetchAndDrawChart);
+
+      function fetchAndDrawChart() {
+        drawChart();
+        setInterval(drawChart, 10000);
+      }
+
+      let startTime = 0;
+      const formatDate = d => new Date(d).toLocaleTimeString();
+
+      function drawChart() {
+        fetch('/api/occurrence/' + startTime)
+          .then(r => r.json())
+          .then(stats => {
+            data = [];
+            if (stats.length > 0) {
+              const headers = Object.keys(stats[0].counts).sort();
+              data.push(['Time', ...headers]);
+
+              stats.forEach(stat => {
+                const row = headers.map(h => stat.counts[h]);
+                row.unshift(formatDate(stat._id));
+                data.push(row);
+              });
+            }
+
+            const chartData = google.visualization.arrayToDataTable(data);
+
+            var options = {
+              title: 'Tweets',
+              curveType: 'function',
+              legend: { position: 'bottom' },
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(chartData, options);
+          });
+
+      }
+
+    </script>
+    <style>
+        #curve_chart {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
 <body>
-add chart here
+<div id="curve_chart">
+
+</div>
 </body>
+</html>
